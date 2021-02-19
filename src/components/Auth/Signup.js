@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import APIURL from '../../helpers/environment'
-import {Form, FormGroup, Label, Input, Button} from 'reactstrap';
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+
 
 const Signup = (props) => {
   const [firstName, setFirstName] = useState('');
@@ -34,25 +36,64 @@ const Signup = (props) => {
   return(
     <div>
       <h1>Sign Up</h1>
-      <Form onSubmit={handleSubmit}>
-        <FormGroup>
-          <Label htmlFor="firstName">First Name</Label>
-          <Input onChange={(e) => setFirstName(e.target.value)} name="firstName" required value={firstName}/>
-        </FormGroup>
-        <FormGroup>
-          <Label htmlFor="lastName">Last Name</Label>
-          <Input onChange={(e) => setLastName(e.target.value)} required name="lastName" value={lastName}/>
-        </FormGroup>
-        <FormGroup>
-          <Label htmlFor="email">Email</Label>
-          <Input onChange={(e) => setEmail(e.target.value)} required type="email" name="email" value={email}/>
-        </FormGroup>
-        <FormGroup>
-          <Label htmlFor="password">Password</Label>
-          <Input onChange={(e) => setPassword(e.target.value)} required type="password" name="password" value={password}/>
-        </FormGroup>
-        <Button type="submit">Signup</Button>
-      </Form>
+      <form id="login-signup-form" onSubmit={handleSubmit}>
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          id="firstName"
+          label="First Name"
+          onChange={(e) => setFirstName(e.target.value)}
+          name="First Name"
+          value={firstName}
+          autoFocus
+        />
+        <br />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          id="lastname"
+          label="Last Name"
+          onChange={(e) => setLastName(e.target.value)}
+          name="Last name"
+          value={lastName}
+          autoFocus
+        />
+        <br />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          id="email"
+          label="Email"
+          onChange={(e) => setEmail(e.target.value)}
+          name="email"
+          value={email}
+          autoFocus
+        />
+        <br />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          label="Password"
+          type="password"
+          id="password"
+          onChange={(e) => setPassword(e.target.value)}
+          name="password"
+          value={password}
+        />
+        <br />
+        <Button
+          id="login-signup-button"
+          type="submit"
+          variant="contained"
+          color="primary"
+        >
+          Sign Up
+        </Button>
+      </form>
     </div>
   )
 }
