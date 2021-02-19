@@ -3,7 +3,7 @@ import {Container, Row, Col} from 'reactstrap';
 import WorkoutCreate from './WorkoutCreate';
 import WorkoutTable from './WorkoutTable';
 import WorkoutEdit from './WorkoutEdit';
-import APIURL from '../helpers/environment';
+import APIURL from '../../helpers/environment';
 
 const WorkoutIndex = (props) => {
 

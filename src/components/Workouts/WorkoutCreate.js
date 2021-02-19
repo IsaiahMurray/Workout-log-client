@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import APIURL from '../helpers/environment';
+import APIURL from '../../helpers/environment';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 const WorkoutCreate = (props) => {
