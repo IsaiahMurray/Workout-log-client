@@ -22,13 +22,16 @@ const WorkoutTable = (props) => {
   const classes = useStyles();
 
   const deleteWorkout = (workout) => {
-    fetch(`${APIURL}${workout.id}`, {
+
+    fetch(`${APIURL}log/${workout.id}`, {
       method: "DELETE",
       headers: new Headers({
         "Content-Type": "application/json",
         Authorization: props.token,
       }),
-    }).then(() => props.fetchWorkouts());
+    }).then(() => { 
+      alert("Workout entry deleted");
+      props.fetchWorkouts()});
   };
 
   let rows = props.workouts;
@@ -63,7 +66,8 @@ const WorkoutTable = (props) => {
                   <WorkoutEdit token={props.token} fetchWorkouts={props.fetchWorkouts} workout={row}/>
                   <Button
                     onClick={() => {
-                      console.log(row)
+                      console.log(row);
+                      deleteWorkout(row);
                     }}
                   >
                     Delete
