@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import './App.css';
-import Sitebar from '../src/components/Home/Navbar';
+import Sitebar from './components/Home/Sitebar';
 import Auth from './components/Auth/Auth';
 import WorkoutIndex from './components/Workouts/WorkoutIndex'; 
 
