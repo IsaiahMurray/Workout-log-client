@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import APIURL from '../../helpers/environment';
-import {Form, FormGroup, Label, Input, Button} from 'reactstrap'; //1
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
 const Login = (props) => {
   const [email, setEmail] = useState(''); //2
@@ -24,17 +25,35 @@ const Login = (props) => {
   return(
     <div>
       <h1>Login</h1>
-      <Form onSubmit={handleSubmit} >
-        <FormGroup>
-          <Label htmlFor="email">Email</Label>
-          <Input onChange={(e) => setEmail(e.target.value)} type="email" name="email" value={email} required />
-        </FormGroup>
-        <FormGroup>
-          <Label htmlFor="password">Password</Label>
-          <Input onChange={(e) => setPassword(e.target.value)} name="password" type="password" value={password}/>
-        </FormGroup>
-        <Button type="submit">Login</Button>
-      </Form>
+      <form id="login-signup-form" onSubmit={handleSubmit} >
+      <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          id="email"
+          label="Email"
+          onChange={(e) => setEmail(e.target.value)}
+          name="email"
+          value={email}
+          autoFocus
+        />
+        <br />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          label="Password"
+          type="password"
+          id="password"
+          onChange={(e) => setPassword(e.target.value)}
+          name="password"
+          value={password}
+        />
+        <br />
+        <Button id="login-signup-button" type="submit" variant="contained" color="primary">
+          Log In
+        </Button>
+      </form>
     </div>
   )
 }

@@ -8,10 +8,6 @@ import Signup from './Signup';
 const Auth = (props) => {
   const [login, setLogin] = useState(true);
 
-  const title = () => {
-      return login ? 'Login' : 'Signup'
-  }
-
   const loginToggle = (event) => {
       event.preventDefault();
       setLogin(!login);
@@ -21,12 +17,10 @@ const Auth = (props) => {
   (
       
       <Grid id="login-signup" item xs={12} sm={6}>
-          <h2>{title()}</h2>
           <Signup updateToken={props.updateToken}/>
       </Grid>
   ) : ( 
       <Grid id="login-signup" item xs={12} sm={6} className="login-col">
-          <h2>{title()}</h2>
           <Login updateToken={props.updateToken}/>
       </Grid>
   );
@@ -43,7 +37,7 @@ const Auth = (props) => {
               {signupFields()}
               <br/>
           </Grid>
-          <Button id="toggle-button" onClick={loginToggle}>{!login ? 'Login' : 'Signup'}</Button>
+          <Button id="toggle-button" onClick={loginToggle}>{!login ? 'Already a member? Login' : 'Not a member? Signup'}</Button>
       </Container>
   )
 }
