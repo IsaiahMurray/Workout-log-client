@@ -6,34 +6,35 @@ import WorkoutIndex from './components/Workouts/WorkoutIndex';
 
 
 function App() {
+  const [sessionToken, setSessionToken] = useState(null); 
 
-  const [sessionToken, setSessionToken] = useState(null);
+  useEffect(() => { 
+    if(localStorage.getItem('token')){
+      setSessionToken(localStorage.getItem('token'));
+    }
+  }, [])
+
+  const updateToken = (newToken) => { 
+    localStorage.setItem('token', newToken);
+    setSessionToken(newToken);
+  }
 
   const clearToken = () => {
     localStorage.clear();
-    setSessionToken(null);
+    setSessionToken('')
   }
 
-  useEffect(() => {
-    if (localStorage.getItem('token')) {
-      setSessionToken(localStorage.getItem('token'));
-    }
-  }, []);
+  const protectedViews = () => {
 
-  const updateToken = (newToken) => {
-    localStorage.setItem('token', newToken);
-    setSessionToken(newToken);
-    console.log(sessionToken);
-  };
+    const authorized = sessionToken;
 
-  const protectedView = () => {
-    return (sessionToken === localStorage.getItem('token') ? <WorkoutIndex token={sessionToken} /> : <Auth updateToken={updateToken} />)
+    return (authorized ? <WorkoutIndex token={sessionToken} /> : <Auth updateToken={updateToken} />)
   }
 
   return (
     <div className="App">
       <Sitebar clearToken={clearToken} />
-      {protectedView()}
+      {protectedViews()}
     </div>
   );
 }
