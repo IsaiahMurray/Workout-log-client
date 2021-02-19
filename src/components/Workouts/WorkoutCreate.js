@@ -52,7 +52,7 @@ const WorkoutCreate = (props) => {
     <div>
       <h3>Log a Workout</h3>
 
-      <form id="login-signup-form" onSubmit={handleSubmit}>
+      <form id="workout-create-form" onSubmit={handleSubmit}>
         <br />
         <TextField
           variant="outlined"
