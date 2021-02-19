@@ -1,73 +1,124 @@
-import React, {useState, useEffect} from 'react';
-import APIURL from '../../helpers/environment';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import React, { useState, useEffect } from "react";
+import APIURL from "../../helpers/environment";
+import {
+  FormControl,
+  TextField,
+  Button,
+  InputLabel,
+  Select,
+} from "@material-ui/core/";
 
 const WorkoutCreate = (props) => {
-  const [date, setDate] = useState('');
-  const [activity, setActivity] = useState('');
-  const [duration, setDuration] = useState('');
-  const [notes, setNotes] = useState('');
+  const [date, setDate] = useState("");
+  const [activity, setActivity] = useState("");
+  const [duration, setDuration] = useState("");
+  const [notes, setNotes] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch(`${APIURL}/log`, { 
-      method: 'POST', 
-      body: JSON.stringify({log: 
-        {
-          date: date, 
-          activity: activity, 
-          duration: duration,
-          notes: notes
-        }
-      }),
+    let logEntry = {
+      log: {
+        date: date,
+        activity: activity,
+        duration: duration,
+        notes: notes,
+      },
+    };
+    console.log(logEntry)
+
+    fetch(`${APIURL}log/create`, {
+      method: "POST",
       headers: new Headers({
-        'Content-Type': 'application/json',
-        'Authorization': props.token 
-      })
-    }) 
-    .then((res) => res.json())
-    .then((logData) => { 
-      console.log(logData);
-      setDate(''); 
-      setActivity('');  
-      setDuration('');
-      setNotes('');
-      props.fetchWorkouts();
+        "Content-Type": "application/json",
+        Authorization: props.token,
+      }),
+      body: JSON.stringify(logEntry),
     })
+      .then((res) => { 
+        res.json();
+        console.log(res)
+      })
+      .then((logData) => {
+        console.log(logData);
+        setDate("");
+        setActivity("");
+        setDuration("");
+        setNotes("");
+        props.fetchWorkouts();
+      });
   };
 
-  return(
+  return (
     <div>
       <h3>Log a Workout</h3>
-      <Form onSubmit={handleSubmit}>
-        <FormGroup>
-          <Label htmlFor="date"/>
-          <Input onChange={(e) => setDate(e.target.value)} type="date" name="date" value={date} />
-        </FormGroup>
-        <FormGroup>
-          <Label htmlFor="activity"/>
-          <Input onChange={(e) => setActivity(e.target.value)} type="select" name="activity" value={activity}>
-            <option>Select an activity</option>
+
+      <form id="login-signup-form" onSubmit={handleSubmit}>
+        <br />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          id="date"
+          onChange={(e) => setDate(e.target.value)}
+          name="date"
+          value={date}
+          type="date"
+          autoFocus
+        />
+        <br />
+        <FormControl className={""}>
+          <InputLabel htmlFor="age-native-simple">Activity</InputLabel>
+          <Select
+            native
+            value={activity}
+            onChange={(e) => setActivity(e.target.value)}
+            inputProps={{
+              name: "activity",
+              id: "age-native-simple",
+            }}
+          >
+            <option aria-label="None" value="" />
             <option value="Gardening">Gardening</option>
             <option value="Horse Riding">Horse Riding</option>
             <option value="Swimming">Swimming</option>
             <option value="Walk">Walk</option>
             <option value="Yoga">Yoga</option>
             <option value="Other">Other</option>
-          </Input>
-        </FormGroup>
-        <FormGroup>
-          <Label htmlFor="duration"/>
-          <Input onChange={(e) => setDuration(e.target.value)} type="text" name="duration" placeholder="Time spent in hours or min." value={duration}/> 
-        </FormGroup>
-        <FormGroup>
-          <Label htmlFor="notes"/>
-          <Input onChange={(e) => setNotes(e.target.value)} type="textarea" name="notes" placeholder="Notes" value={notes}/> 
-        </FormGroup>
-        <Button type="submit">Click to Submit</Button>
-      </Form>
+          </Select>
+        </FormControl>
+        <br />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          label="Duration"
+          type="text"
+          id="duration"
+          onChange={(e) => setDuration(e.target.value)}
+          name="duration"
+          value={duration}
+        />
+        <br />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          label="Notes"
+          type="text"
+          id="notes"
+          onChange={(e) => setNotes(e.target.value)}
+          name="notes"
+          value={notes}
+        />
+        <br />
+        <Button
+          id="login-signup-button"
+          type="submit"
+          variant="contained"
+          color="primary"
+        >
+          Submit
+        </Button>
+      </form>
     </div>
-  )
+  );
 };
 
-export default WorkoutCreate
+export default WorkoutCreate;

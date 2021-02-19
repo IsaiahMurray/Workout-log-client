@@ -12,17 +12,20 @@ const WorkoutIndex = (props) => {
   const [workoutToUpdate, setWorkoutToUpdate] = useState({});
 
   const fetchWorkouts = () => {
-    fetch(`${APIURL}log`, {
-      method: 'GET',
-      headers: new Headers ({
-        'Content-Type': 'application/json',
-        'Authorization': props.token
-      })
+    fetch(`${APIURL}log/all`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: props.token,
+      },
     })
-    .then( (res) => res.json())
-    .then((logData) => {
-      console.log(logData.logs)
-      setWorkouts(logData.logs)
+    .then( (res) => {
+      res.json();
+      console.log(res)
+    })
+    .then((data) => {
+      console.log("fetch data: ", data)
+      //setWorkouts(logData)
     })
   };
 
@@ -52,9 +55,9 @@ const WorkoutIndex = (props) => {
         <Col md="3">
           <WorkoutCreate fetchWorkouts={fetchWorkouts} token={props.token} />
         </Col>
-        <Col md="9">
+        {/* <Col md="9">
           {(workouts.length) ? <WorkoutTable workouts={workouts} editUpdateWorkout={editUpdateWorkout} updateOn={updateOn} fetchWorkouts={fetchWorkouts} token={props.token}/> : <h1>Log a workout!</h1>}
-        </Col>
+        </Col> */}
         {updateActive ? <WorkoutEdit workoutToUpdate={workoutToUpdate} updateOff={updateOff} token={props.token} fetchWorkouts={fetchWorkouts} /> : <div></div>}
       </Row>
     </Container>
