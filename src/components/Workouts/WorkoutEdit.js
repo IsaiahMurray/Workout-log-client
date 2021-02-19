@@ -66,6 +66,7 @@ const WorkoutEdit = (props) => {
       }
       return response.json();
     })
+    .then(props.fetchWorkouts, handleClose())
 
   };
   return (

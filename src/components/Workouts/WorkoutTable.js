@@ -60,10 +60,9 @@ const WorkoutTable = (props) => {
                 <TableCell align="right">{row.notes}</TableCell>
                 <TableCell align="right">{row.date}</TableCell>
                 <TableCell align="right">
-                  <WorkoutEdit token={props.token} workout={row}/>
+                  <WorkoutEdit token={props.token} fetchWorkouts={props.fetchWorkouts} workout={row}/>
                   <Button
                     onClick={() => {
-                      // deleteWorkout(row);
                       console.log(row)
                     }}
                   >
