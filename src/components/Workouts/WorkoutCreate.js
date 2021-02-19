@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import APIURL from "../../helpers/environment";
 import {
-  FormControl,
   TextField,
   Button,
-  InputLabel,
-  Select,
 } from "@material-ui/core/";
 
 const WorkoutCreate = (props) => {
@@ -24,7 +21,6 @@ const WorkoutCreate = (props) => {
         notes: notes,
       },
     };
-    console.log(logEntry)
 
     fetch(`${APIURL}log/create`, {
       method: "POST",
@@ -36,10 +32,8 @@ const WorkoutCreate = (props) => {
     })
       .then((res) => { 
         res.json();
-        console.log(res)
       })
-      .then((logData) => {
-        console.log(logData);
+      .then(() => {
         setDate("");
         setActivity("");
         setDuration("");
@@ -65,26 +59,16 @@ const WorkoutCreate = (props) => {
           autoFocus
         />
         <br />
-        <FormControl className={""}>
-          <InputLabel htmlFor="age-native-simple">Activity</InputLabel>
-          <Select
-            native
-            value={activity}
-            onChange={(e) => setActivity(e.target.value)}
-            inputProps={{
-              name: "activity",
-              id: "age-native-simple",
-            }}
-          >
-            <option aria-label="None" value="" />
-            <option value="Gardening">Gardening</option>
-            <option value="Horse Riding">Horse Riding</option>
-            <option value="Swimming">Swimming</option>
-            <option value="Walk">Walk</option>
-            <option value="Yoga">Yoga</option>
-            <option value="Other">Other</option>
-          </Select>
-        </FormControl>
+        <TextField
+          variant="outlined"
+          margin="normal"
+          label="Activity"
+          type="text"
+          id="activity"
+          onChange={(e) => setActivity(e.target.value)}
+          name="activity"
+          value={activity}
+        />
         <br />
         <TextField
           variant="outlined"

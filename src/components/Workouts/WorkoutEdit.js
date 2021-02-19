@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import APIURL from "../../helpers/environment";
 import {
-  FormControl,
   TextField,
   Button,
-  InputLabel,
-  Select,
   Modal,
   Backdrop,
   Fade,
@@ -60,14 +57,14 @@ const WorkoutEdit = (props) => {
         "Content-Type": "application/json",
         Authorization: props.token,
       }),
-    }).then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
     })
-    .then(props.fetchWorkouts, handleClose())
-
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then(props.fetchWorkouts, handleClose());
   };
   return (
     <div>
@@ -102,26 +99,16 @@ const WorkoutEdit = (props) => {
                 autoFocus
               />
               <br />
-              <FormControl className={""}>
-                <InputLabel htmlFor="age-native-simple">Activity</InputLabel>
-                <Select
-                  native
-                  value={editActivity}
-                  onChange={(e) => setEditActivity(e.target.value)}
-                  inputProps={{
-                    name: "activity",
-                    id: "age-native-simple",
-                  }}
-                >
-                  <option aria-label="None" value="" />
-                  <option value="Gardening">Gardening</option>
-                  <option value="Horse Riding">Horse Riding</option>
-                  <option value="Swimming">Swimming</option>
-                  <option value="Walk">Walk</option>
-                  <option value="Yoga">Yoga</option>
-                  <option value="Other">Other</option>
-                </Select>
-              </FormControl>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                label="Activity"
+                type="text"
+                id="activity"
+                onChange={(e) => setEditActivity(e.target.value)}
+                name="activity"
+                value={editActivity}
+              />
               <br />
               <TextField
                 variant="outlined"

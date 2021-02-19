@@ -36,8 +36,6 @@ const WorkoutTable = (props) => {
 
   let rows = props.workouts;
 
-  console.log("rows: ", rows);
-
   return (
     <div>
       <h3>Workout History</h3>

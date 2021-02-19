@@ -8,33 +8,33 @@ const WorkoutIndex = (props) => {
   const [workouts, setWorkouts] = useState([]);
 
   const fetchWorkouts = () => {
-    fetch(`http://localhost:3000/log/all`, {
+    fetch(`${APIURL}log/all`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         Authorization: props.token,
       },
     })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log(data);
-      setWorkouts(data)
-    })
-    .catch(error => {
-      console.error('There has been a problem with your fetch operation:', error);
-    });
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setWorkouts(data);
+      })
+      .catch((error) => {
+        console.error(
+          "There has been a problem with your fetch operation:",
+          error
+        );
+      });
   };
 
   useEffect(() => {
     fetchWorkouts();
   }, []);
-
-  console.log(workouts);
 
   return (
     <div>
@@ -43,10 +43,11 @@ const WorkoutIndex = (props) => {
           <Col md="3">
             <WorkoutCreate fetchWorkouts={fetchWorkouts} token={props.token} />
           </Col>
-          {/* <Col md="9">
-          {(!workouts.length === 0) ? <WorkoutTable workouts={workouts} editUpdateWorkout={editUpdateWorkout} updateOn={updateOn} fetchWorkouts={fetchWorkouts} token={props.token}/> : <h1>Log a workout!</h1>}
-        </Col> */}
-        <WorkoutTable workouts={workouts} fetchWorkouts={fetchWorkouts} token={props.token}/>
+          <WorkoutTable
+            workouts={workouts}
+            fetchWorkouts={fetchWorkouts}
+            token={props.token}
+          />
         </Row>
       </Container>
     </div>
